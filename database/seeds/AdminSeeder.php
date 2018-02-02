@@ -16,8 +16,8 @@ class AdminSeeder extends Seeder
     {
         $admins = [
             [
-                "email" => "ndzakovic@yahoo.com",
-                "password" => "prasence123"
+                "email" => "putin@yahoo.com",
+                "password" => "putin"
             ]
         ];
         for($i=0; $i < count($admins); $i++){
