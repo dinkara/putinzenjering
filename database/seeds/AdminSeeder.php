@@ -20,8 +20,19 @@ class AdminSeeder extends Seeder
                 "password" => "putin123"
             ]
         ];
+        
+        $users = [
+            [
+                "email" => "putinuser@yahoo.com",
+                "password" => "putin123"
+            ]
+        ];
         for($i=0; $i < count($admins); $i++){
             $userRepo->create($admins[$i])->attachRole($roleRepo->findByName(RoleTypes::ADMIN)->getModel());
+        }
+        
+        for($i=0; $i < count($users); $i++){
+            $userRepo->create($users[$i])->attachRole($roleRepo->findByName(RoleTypes::USER)->getModel());
         }
     }
 }
