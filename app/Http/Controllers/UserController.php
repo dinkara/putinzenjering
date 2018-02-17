@@ -10,6 +10,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use Dinkara\DinkoApi\Http\Controllers\ResourceController;
 use App\Http\Requests\UpdateProfileRequest;
 use Illuminate\Database\QueryException;
+use Storage;
 use ApiResponse;
 use App\Http\Requests\UserAttachRoleRequest;
 use App\Repositories\Role\IRoleRepo;
@@ -98,6 +99,7 @@ class UserController extends ResourceController
             try {
                 $user = JWTAuth::parseToken()->toUser();
                 $data = $request->only(array_keys($request->rules()));
+                
                 if( $item = $this->profileRepo->find($user->profile->id)->update($data)){
                     //refresh user after update
                     return ApiResponse::ItemUpdated($this->repo->find($user->id)->getModel(), new $this->transformer, class_basename($this->repo->getModel()));

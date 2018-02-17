@@ -18,7 +18,7 @@ class StoreImageRequest extends ApiRequest
         return [
 	    'review_id' => 'required',
 	    'loading_id' => 'required',
-	    'url' => 'required',
+	    'url' => 'required|image',
 
         ];
     }

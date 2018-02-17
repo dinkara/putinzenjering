@@ -25,9 +25,9 @@ Available includes: [questions, images, user, order]
     <!-- include(request/header.md) -->
     + Body
     {
-            "order_id": 14 (number),
-            "order": 10 (number),
-            "description": perspiciatis (string),
+            "order_id": 12 (number),
+            "order": 7 (number),
+            "description": mollitia (string),
 
     }
 + Response 201 (application/json)
@@ -54,8 +54,8 @@ Available includes: [questions, images, user, order]
     <!-- include(request/header.md) -->
     + Body
     {
-            "order": 16 (number),
-            "description": velit (string),
+            "order": 20 (number),
+            "description": quasi (string),
 
     }
 + Response 200 (application/json)

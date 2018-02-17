@@ -46,7 +46,8 @@
         "post-create-project-cmd": [
 	    "@php -r \"file_exists('.env') || copy('env.example', '.env');\"",
             "@php artisan key:generate",
-	    "@php artisan jwt:generate"
+	    "@php artisan jwt:generate",
+            "@php artisan storage:link"
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
@@ -54,7 +55,8 @@
 	    "@php -r \"file_exists('.env') || copy('env.example', '.env');\"",
 	    "@php artisan vendor:publish --all",
             "@php artisan key:generate",
-	    "@php artisan jwt:generate"
+	    "@php artisan jwt:generate",
+            "@php artisan storage:link"
         ]
     },
     "config": {

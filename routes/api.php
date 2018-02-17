@@ -100,9 +100,9 @@ Route::middleware(['dinkoapi.auth', 'user.check.status'])->group(function (){
 
         Route::get('{id}/orders/paginate', 'ProjectController@paginatedOrders');
         
-        Route::get('projects', 'ProjectController@allUsers');
+        Route::get('{id}/users', 'ProjectController@allUsers');
 
-        Route::get('projects/paginate', 'ProjectController@paginatedUsers');
+        Route::get('{id}/users/paginate', 'ProjectController@paginatedUsers');
 
 
 
@@ -119,9 +119,9 @@ Route::middleware(['dinkoapi.auth', 'user.check.status'])->group(function (){
     Route::group(['prefix' => 'questions'], function(){
         Route::get('paginate', 'QuestionController@paginate');
         
-        Route::get('{id}/questions', 'QuestionController@allReviews');
+        Route::get('{id}/reviews', 'QuestionController@allReviews');
 
-        Route::get('{id}/questions/paginate', 'QuestionController@paginatedReviews');
+        Route::get('{id}/reviews/paginate', 'QuestionController@paginatedReviews');
 
 
 

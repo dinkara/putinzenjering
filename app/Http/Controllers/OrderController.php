@@ -9,6 +9,7 @@ use App\Repositories\Order\IOrderRepo;
 use App\Transformers\OrderTransformer;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Dinkara\DinkoApi\Http\Controllers\ResourceController;
+use Storage;
 use ApiResponse;
 use App\Transformers\ReviewTransformer;
 use App\Transformers\LoadingTransformer;
@@ -45,6 +46,7 @@ class OrderController extends ResourceController
     public function store(StoreOrderRequest $request)
     {       
         $data = $request->only($this->repo->getModel()->getFillable());
+
 	
         return $this->storeItem($data);
     }
@@ -60,11 +62,36 @@ class OrderController extends ResourceController
      */
     public function update(UpdateOrderRequest $request, $id)
     {
-        $data = $request->only($this->repo->getModel()->getFillable());
+        $data = $request->only($this->repo->getModel()->getFillable());        
+        $item = $this->repo->find($id);
+
 	
         return $this->updateItem($data, $id);
     }
 
+        /**
+     * Remove item
+     * 
+     * Remove the specified item from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        try{
+            if($item = $this->repo->find($id)){
+                
+                $item->delete($id);
+                return ApiResponse::ItemDeleted($this->repo->getModel());
+            }
+        } catch (QueryException $e) {
+            return ApiResponse::InternalError($e->getMessage());
+        } 
+        
+        return ApiResponse::ItemNotFound($this->repo->getModel());       
+    }
+    
     /**
      * Get all Review for Order with given $id
      *

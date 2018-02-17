@@ -23,7 +23,7 @@ Available includes: [reviews]
     <!-- include(request/header.md) -->
     + Body
     {
-            "text": animi (string),
+            "text": nam (string),
 
     }
 + Response 201 (application/json)
@@ -49,7 +49,7 @@ Available includes: [reviews]
     <!-- include(request/header.md) -->
     + Body
     {
-            "text": nesciunt (string),
+            "text": aut (string),
 
     }
 + Response 200 (application/json)

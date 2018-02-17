@@ -5,7 +5,7 @@ FORMAT: 1A
 putinzenjering is really cool application developed using Laravel Api Builder.
 
 ## API URL
-All requests should be sent to http://putin.dzale.com/api
+All requests should be sent to http://putin.dinkara.com/api
 
 # Group Authentication
 
