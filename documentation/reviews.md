@@ -17,7 +17,6 @@ Available includes: [questions, images, user, order]
 + Request Rules:
     {
         "order_id": 'required',
-        "order": 'required',
         "description": 'required',
 
     }
@@ -25,9 +24,8 @@ Available includes: [questions, images, user, order]
     <!-- include(request/header.md) -->
     + Body
     {
-            "order_id": 14 (number),
-            "order": 10 (number),
-            "description": perspiciatis (string),
+            "order_id": 5 (number),
+            "description": a (string),
 
     }
 + Response 201 (application/json)
@@ -46,7 +44,6 @@ Available includes: [questions, images, user, order]
 <!-- include(parameters/id.md) -->
 + Request Rules:
     {
-        "order": 'required',
         "description": 'required',
 
     }
@@ -54,8 +51,7 @@ Available includes: [questions, images, user, order]
     <!-- include(request/header.md) -->
     + Body
     {
-            "order": 16 (number),
-            "description": velit (string),
+            "description": omnis (string),
 
     }
 + Response 200 (application/json)

@@ -16,7 +16,6 @@ class UpdateReviewRequest extends ApiRequest
     public function rules()
     {
         return [
-	    'order' => 'required',
 	    'description' => 'required',
 
         ];

@@ -23,7 +23,7 @@ Available includes: [orders]
     <!-- include(request/header.md) -->
     + Body
     {
-            "name": tenetur (string),
+            "name": dolorem (string),
 
     }
 + Response 201 (application/json)
@@ -49,7 +49,7 @@ Available includes: [orders]
     <!-- include(request/header.md) -->
     + Body
     {
-            "name": ut (string),
+            "name": et (string),
 
     }
 + Response 200 (application/json)

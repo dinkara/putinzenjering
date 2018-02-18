@@ -9,6 +9,7 @@ use App\Repositories\Loading\ILoadingRepo;
 use App\Transformers\LoadingTransformer;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Dinkara\DinkoApi\Http\Controllers\ResourceController;
+use Storage;
 use ApiResponse;
 use App\Transformers\ImageTransformer;
 
@@ -47,6 +48,7 @@ class LoadingController extends ResourceController
     public function store(StoreLoadingRequest $request)
     {       
         $data = $request->only($this->repo->getModel()->getFillable());
+
 	    $data["user_id"] = JWTAuth::parseToken()->toUser()->id;   
     
         return $this->storeItem($data);
@@ -63,12 +65,37 @@ class LoadingController extends ResourceController
      */
     public function update(UpdateLoadingRequest $request, $id)
     {
-        $data = $request->only($this->repo->getModel()->getFillable());
+        $data = $request->only($this->repo->getModel()->getFillable());        
+        $item = $this->repo->find($id);
+
 	    $data["user_id"] = JWTAuth::parseToken()->toUser()->id;   
     
         return $this->updateItem($data, $id);
     }
 
+        /**
+     * Remove item
+     * 
+     * Remove the specified item from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        try{
+            if($item = $this->repo->find($id)){
+                
+                $item->delete($id);
+                return ApiResponse::ItemDeleted($this->repo->getModel());
+            }
+        } catch (QueryException $e) {
+            return ApiResponse::InternalError($e->getMessage());
+        } 
+        
+        return ApiResponse::ItemNotFound($this->repo->getModel());       
+    }
+    
     /**
      * Get all Image for Loading with given $id
      *

@@ -26,10 +26,10 @@ Available includes: [reviews, loadings, category, project]
     <!-- include(request/header.md) -->
     + Body
     {
-            "category_id": 20 (number),
-            "project_id": 16 (number),
-            "quantity": 14 (number),
-            "description": nisi (string),
+            "category_id": 6 (number),
+            "project_id": 8 (number),
+            "quantity": 11 (number),
+            "description": sequi (string),
 
     }
 + Response 201 (application/json)
@@ -56,8 +56,8 @@ Available includes: [reviews, loadings, category, project]
     <!-- include(request/header.md) -->
     + Body
     {
-            "quantity": 7 (number),
-            "description": error (string),
+            "quantity": 14 (number),
+            "description": omnis (string),
 
     }
 + Response 200 (application/json)

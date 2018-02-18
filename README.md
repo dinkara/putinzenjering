@@ -36,7 +36,7 @@
         php artisan migrate --seed
 
 
-7. Run application (or if you have vhost or vps, then just skip remaining steps and go directly to http://putin.dzale.com)
+7. Run application (or if you have vhost or vps, then just skip remaining steps and go directly to http://putin.dinkara.com)
 
         php artisan serve
 
@@ -73,9 +73,9 @@
 
         composer update
 
-## [Documentation](http://putin.dzale.com/docs.html)
+## [Documentation](http://putin.dinkara.com/docs.html)
 
-## [Postman examples](http://putin.dzale.com/postman/collection.json)
+## [Postman examples](http://putin.dinkara.com/postman/collection.json)
 
 ## About Laravel
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
