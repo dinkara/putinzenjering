@@ -55,9 +55,15 @@ Available includes: [orders, users]
     <!-- include(request/header.md) -->
     + Body
     {
+<<<<<<< HEAD
             "name": ea (string),
             "location": nesciunt (string),
             "description": quam (string),
+=======
+            "name": inventore (string),
+            "location": asperiores (string),
+            "description": non (string),
+>>>>>>> 420bf4b7ba2552e68f3c35963ae88370a6e60f15
 
     }
 + Response 200 (application/json)

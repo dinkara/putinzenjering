@@ -11,7 +11,7 @@ use Dinkara\DinkoApi\Transformers\ApiTransformer;
  */
 class TruckTransformer extends ApiTransformer{
     
-    protected $defaultIncludes = ['loadings'];
+    protected $defaultIncludes = ['loading'];
     protected $availableIncludes = [];
     protected $pivotAttributes = [];
     

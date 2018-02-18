@@ -25,9 +25,9 @@ Available includes: [review, loading]
     <!-- include(request/header.md) -->
     + Body
     {
-            "review_id": 12 (number),
-            "loading_id": 16 (number),
-            "url": similique (string),
+            "review_id": 9 (number),
+            "loading_id": 17 (number),
+            "url": aut (string),
 
     }
 + Response 201 (application/json)
@@ -53,7 +53,7 @@ Available includes: [review, loading]
     <!-- include(request/header.md) -->
     + Body
     {
-            "url": dolore (string),
+            "url": eligendi (string),
 
     }
 + Response 200 (application/json)

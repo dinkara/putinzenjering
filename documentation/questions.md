@@ -49,7 +49,11 @@ Available includes: [reviews]
     <!-- include(request/header.md) -->
     + Body
     {
+<<<<<<< HEAD
             "text": officiis (string),
+=======
+            "text": aut (string),
+>>>>>>> 420bf4b7ba2552e68f3c35963ae88370a6e60f15
 
     }
 + Response 200 (application/json)

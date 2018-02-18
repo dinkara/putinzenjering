@@ -45,6 +45,9 @@ class ImageController extends ResourceController
     {       
         $data = $request->only($this->repo->getModel()->getFillable());
 
+        if($request->file("url")){
+            $data["url"] = $request->file("url")->store(config("storage.images.url"));   
+        }
 	
         return $this->storeItem($data);
     }
@@ -62,7 +65,12 @@ class ImageController extends ResourceController
     {
         $data = $request->only($this->repo->getModel()->getFillable());        
         $item = $this->repo->find($id);
-
+                
+        if($request->file("url")){
+            Storage::delete($item->getModel()->url);
+    
+            $data["url"] = $request->file("url")->store(config("storage.images.url"));   
+        }
 	
         return $this->updateItem($data, $id);
     }
@@ -79,7 +87,7 @@ class ImageController extends ResourceController
     {
         try{
             if($item = $this->repo->find($id)){
-                
+                Storage::delete($item->getModel()->url);
                 $item->delete($id);
                 return ApiResponse::ItemDeleted($this->repo->getModel());
             }

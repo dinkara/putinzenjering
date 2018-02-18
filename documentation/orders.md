@@ -25,11 +25,10 @@ Available includes: [reviews, loadings, category, project]
 + Request (application/json)
     <!-- include(request/header.md) -->
     + Body
-    {
-            "category_id": 6 (number),
-            "project_id": 8 (number),
-            "quantity": 11 (number),
-            "description": sequi (string),
+    {            "category_id": 7 (number),
+            "project_id": 20 (number),
+            "quantity": 18 (number),
+            "description": mollitia (string),
 
     }
 + Response 201 (application/json)

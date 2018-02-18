@@ -7,8 +7,12 @@ return [
         
     ],
     'images' => [
+<<<<<<< HEAD
 
         
+=======
+        'url' => "images",        
+>>>>>>> 420bf4b7ba2552e68f3c35963ae88370a6e60f15
     ],
     'loadings' => [
 

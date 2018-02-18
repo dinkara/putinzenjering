@@ -16,8 +16,7 @@ class UpdateImageRequest extends ApiRequest
     public function rules()
     {
         return [
-	    'url' => 'required',
-
+	    'url' => 'image',
         ];
     }
 }
