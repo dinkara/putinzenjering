@@ -25,9 +25,9 @@ Available includes: [images, user, review, truck, order]
     <!-- include(request/header.md) -->
     + Body
     {
-            "review_id": 20 (number),
-            "truck_id": 17 (number),
-            "order_id": 9 (number),
+            "review_id": 7 (number),
+            "truck_id": 10 (number),
+            "order_id": 17 (number),
 
     }
 + Response 201 (application/json)

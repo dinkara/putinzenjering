@@ -25,9 +25,9 @@ Available includes: [review, loading]
     <!-- include(request/header.md) -->
     + Body
     {
-            "review_id": 9 (number),
-            "loading_id": 17 (number),
-            "url": aut (string),
+            "review_id": 12 (number),
+            "loading_id": 11 (number),
+            "url": accusantium (string),
 
     }
 + Response 201 (application/json)

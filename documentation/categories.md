@@ -23,7 +23,7 @@ Available includes: [orders]
     <!-- include(request/header.md) -->
     + Body
     {
-            "name": qui (string),
+            "name": numquam (string),
 
     }
 + Response 201 (application/json)
@@ -49,7 +49,7 @@ Available includes: [orders]
     <!-- include(request/header.md) -->
     + Body
     {
-            "name": enim (string),
+            "name": nihil (string),
 
     }
 + Response 200 (application/json)

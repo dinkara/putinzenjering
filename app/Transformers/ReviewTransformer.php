@@ -11,7 +11,7 @@ use Dinkara\DinkoApi\Transformers\ApiTransformer;
  */
 class ReviewTransformer extends ApiTransformer{
     
-    protected $defaultIncludes = ['loading'];
+    protected $defaultIncludes = ['loadings'];
     protected $availableIncludes = ['images', 'user', 'order', 'questions'];
     protected $pivotAttributes = ['status'];
     

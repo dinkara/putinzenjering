@@ -23,7 +23,7 @@ Available includes: []
     <!-- include(request/header.md) -->
     + Body
     {
-            "plate": illum (string),
+            "plate": voluptatem (string),
 
     }
 + Response 201 (application/json)
@@ -49,7 +49,7 @@ Available includes: []
     <!-- include(request/header.md) -->
     + Body
     {
-            "plate": soluta (string),
+            "plate": eius (string),
 
     }
 + Response 200 (application/json)

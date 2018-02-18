@@ -22,9 +22,7 @@ class ImageTransformer extends ApiTransformer{
      */
     public function transform(Image $item)
     {
-        $result = $this->transformFromModel($item, $this->pivotAttributes);
-        $result['url'] = config("app.url")."/storage/". $result['url'];
-        return $result;
+        return $this->transformFromModel($item, $this->pivotAttributes);
     }
     
     public function includeReview(Image $item)

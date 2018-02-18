@@ -7,7 +7,8 @@ return [
         
     ],
     'images' => [
-        'url' => "images",        
+
+        
     ],
     'loadings' => [
 

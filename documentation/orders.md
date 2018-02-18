@@ -26,10 +26,10 @@ Available includes: [reviews, loadings, category, project]
     <!-- include(request/header.md) -->
     + Body
     {
-            "category_id": 7 (number),
-            "project_id": 20 (number),
+            "category_id": 10 (number),
+            "project_id": 17 (number),
             "quantity": 18 (number),
-            "description": mollitia (string),
+            "description": sed (string),
 
     }
 + Response 201 (application/json)
@@ -56,8 +56,8 @@ Available includes: [reviews, loadings, category, project]
     <!-- include(request/header.md) -->
     + Body
     {
-            "quantity": 8 (number),
-            "description": et (string),
+            "quantity": 15 (number),
+            "description": aut (string),
 
     }
 + Response 200 (application/json)

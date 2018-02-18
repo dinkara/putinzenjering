@@ -19,8 +19,8 @@ class CreateReviewsTable extends Migration
             $table->timestamps();
             $table->integer('user_id')->unsigned();
             $table->integer('order_id')->unsigned();
-            $table->integer('order')->default('1')->unsigned('1');
             $table->string('description',250);
+            $table->integer('position')->default('1')->unsigned('1');
              
         });
     }

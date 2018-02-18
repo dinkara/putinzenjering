@@ -18,21 +18,21 @@ class Review extends Model
      *
      * @var array
      */
-    protected $searchableColumns = ['order', 'description'];
+    protected $searchableColumns = ['description', 'position'];
     
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'order_id', 'order', 'description'];
+    protected $fillable = ['user_id', 'order_id', 'description'];
     
     /**
      * The attributes that are will be shown in transformer
      *
      * @var array
      */
-    protected $displayable = ['order', 'description'];
+    protected $displayable = ['description', 'position'];
     
     public $timestamps = true;
     

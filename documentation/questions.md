@@ -23,7 +23,7 @@ Available includes: [reviews]
     <!-- include(request/header.md) -->
     + Body
     {
-            "text": nam (string),
+            "text": eos (string),
 
     }
 + Response 201 (application/json)
@@ -49,7 +49,7 @@ Available includes: [reviews]
     <!-- include(request/header.md) -->
     + Body
     {
-            "text": aut (string),
+            "text": recusandae (string),
 
     }
 + Response 200 (application/json)

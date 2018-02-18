@@ -25,9 +25,9 @@ Available includes: [orders, users]
     <!-- include(request/header.md) -->
     + Body
     {
-            "name": et (string),
-            "location": doloribus (string),
-            "description": corrupti (string),
+            "name": labore (string),
+            "location": aut (string),
+            "description": incidunt (string),
 
     }
 + Response 201 (application/json)
@@ -55,9 +55,9 @@ Available includes: [orders, users]
     <!-- include(request/header.md) -->
     + Body
     {
-            "name": inventore (string),
-            "location": asperiores (string),
-            "description": non (string),
+            "name": exercitationem (string),
+            "location": dignissimos (string),
+            "description": sed (string),
 
     }
 + Response 200 (application/json)
