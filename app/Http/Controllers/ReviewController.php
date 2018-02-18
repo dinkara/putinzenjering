@@ -6,10 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreReviewRequest;
 use App\Http\Requests\UpdateReviewRequest;
 use App\Repositories\Review\IReviewRepo;
+use App\Repositories\Order\IOrderRepo;
 use App\Transformers\ReviewTransformer;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Dinkara\DinkoApi\Http\Controllers\ResourceController;
 use Storage;
+use Lang;
 use ApiResponse;
 use App\Http\Requests\ReviewAttachQuestionRequest;
 use App\Repositories\Question\IQuestionRepo;
@@ -27,9 +29,14 @@ class ReviewController extends ResourceController
      * @var IQuestionRepo 
      */
     private $questionRepo;
-        
     
-    public function __construct(IReviewRepo $repo, ReviewTransformer $transformer, IQuestionRepo $questionRepo) {
+    
+    /**
+     * @var IOrderRepo 
+     */
+    private $orderRepo;
+      
+    public function __construct(IReviewRepo $repo, ReviewTransformer $transformer, IQuestionRepo $questionRepo, IOrderRepo $orderRepo) {
         parent::__construct($repo, $transformer);
 	
         $this->middleware('exists.order:order_id,true', ['only' => ['store']]);
@@ -43,6 +50,8 @@ class ReviewController extends ResourceController
         $this->middleware('owns.review', ['only' => ['attachQuestion', 'detachQuestion']]);
 
     	$this->questionRepo = $questionRepo;
+        
+        $this->orderRepo = $orderRepo;
 
     }
     
@@ -58,9 +67,23 @@ class ReviewController extends ResourceController
     {       
         $data = $request->only($this->repo->getModel()->getFillable());
 
-	    $data["user_id"] = JWTAuth::parseToken()->toUser()->id;   
-    
-        return $this->storeItem($data);
+        $data["user_id"] = JWTAuth::parseToken()->toUser()->id;
+        $order_id = $request->get('order_id');
+        $order = $this->orderRepo->find($order_id)->getModel();
+        $count = count($order->reviews);
+        $data['position'] = $count + 1;
+        if($count < $order->quantity){
+            try {
+                $result = $this->repo->create($data)->getModel();
+                $result->position = $count + 1;
+                $result->save();
+                return ApiResponse::ItemCreated($result, $this->transformer);
+            } catch (QueryException $e) {
+                return ApiResponse::InternalError($e->getMessage());
+            }
+        }
+        
+        return ApiResponse::Forbidden(Lang::get("messages.review.max"));
     }
 
     /**
