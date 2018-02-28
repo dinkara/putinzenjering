@@ -19,7 +19,7 @@ class StoreUserRequest extends ApiRequest
          [
             'email' => "required|email|max:255|unique:users",
             'password' => "required|confirmed|min:6",         	               
-
+             'role' => "required"
 
 
         ], $profileRequest->rules());

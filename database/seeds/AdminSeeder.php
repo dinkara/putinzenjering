@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Repositories\User\IUserRepo;
 use App\Repositories\Role\IRoleRepo;
+use App\Repositories\Profile\IProfileRepo;
 use App\Support\Enum\RoleTypes;
 
 class AdminSeeder extends Seeder
@@ -12,7 +13,7 @@ class AdminSeeder extends Seeder
      *
      * @return void
      */
-    public function run(IUserRepo $userRepo, IRoleRepo $roleRepo)
+    public function run(IUserRepo $userRepo, IRoleRepo $roleRepo, IProfileRepo $profileRepo)
     {
         $admins = [
             [
@@ -27,12 +28,20 @@ class AdminSeeder extends Seeder
                 "password" => "putin123"
             ]
         ];
+        
+        $profileData["name"] = "Putin";
+        
         for($i=0; $i < count($admins); $i++){
             $userRepo->create($admins[$i])->attachRole($roleRepo->findByName(RoleTypes::ADMIN)->getModel());
+            $profileData["user_id"] = $userRepo->getModel()->id;  
+            
+            $profileRepo->create($profileData);
         }
         
         for($i=0; $i < count($users); $i++){
             $userRepo->create($users[$i])->attachRole($roleRepo->findByName(RoleTypes::USER)->getModel());
+            $profileData["user_id"] = $userRepo->getModel()->id;    
+            $profileRepo->create($profileData);
         }
     }
 }

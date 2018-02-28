@@ -60,6 +60,7 @@ class Kernel extends HttpKernel
         'jwt.auth' => \Tymon\JWTAuth\Middleware\GetUserFromToken::class,
         'jwt.refresh' => \Tymon\JWTAuth\Middleware\RefreshToken::class,
         'dinkoapi.auth' => \Dinkara\DinkoApi\Http\Middleware\DinkoApiAuthMiddleware::class,
+        'is.admin' => \App\Http\Middleware\IsAdmin::class,    
         'user.check.status' => \App\Http\Middleware\CheckUserStatusMiddleware::class,
         'exists.category' => \App\Http\Middleware\CategoryExists::class,    
         'exists.image' => \App\Http\Middleware\ImageExists::class,    

@@ -3,12 +3,25 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/wamp/www/putinzenjering/app/Http/Controllers/OrderController.php</file>
+            <file>file:/C:/wamp/www/putinzenjering/app/Http/Controllers/Auth/AuthController.php</file>
+            <file>file:/C:/wamp/www/putinzenjering/app/Http/Controllers/Admin/UserController.php</file>
+            <file>file:/C:/wamp/www/putinzenjering/app/Http/Middleware/EncryptCookies.php</file>
+            <file>file:/C:/wamp/www/putinzenjering/app/Http/Middleware/CheckUserStatusMiddleware.php</file>
+            <file>file:/C:/wamp/www/putinzenjering/public/postman/collection.json</file>
+            <file>file:/C:/wamp/www/putinzenjering/app/Http/Controllers/Admin/RoleController.php</file>
+            <file>file:/C:/wamp/www/putinzenjering/app/Http/Controllers/CategoryController.php</file>
+            <file>file:/C:/wamp/www/putinzenjering/database/seeds/RoleSeeder.php</file>
+            <file>file:/C:/wamp/www/putinzenjering/routes/api.php</file>
+            <file>file:/C:/wamp/www/putinzenjering/app/Http/Kernel.php</file>
             <file>file:/C:/wamp/www/putinzenjering/app/Support/Enum/Questions.php</file>
             <file>file:/C:/wamp/www/putinzenjering/database/seeds/AdminSeeder.php</file>
-            <file>file:/C:/wamp/www/putinzenjering/.env</file>
+            <file>file:/C:/wamp/www/putinzenjering/app/Http/Controllers/Admin/ProjectController.php</file>
             <file>file:/C:/wamp/www/putinzenjering/database/seeds/QuestionsSeeder.php</file>
-            <file>file:/C:/wamp/www/putinzenjering/public/postman/collection.json</file>
-            <file>file:/C:/wamp/www/putinzenjering/database/seeds/RoleSeeder.php</file>
+            <file>file:/C:/wamp/www/putinzenjering/app/Http/Controllers/UserController.php</file>
+            <file>file:/C:/wamp/www/putinzenjering/app/Http/Controllers/ProjectController.php</file>
+            <file>file:/C:/wamp/www/putinzenjering/app/Http/Controllers/LoadingController.php</file>
+            <file>file:/C:/wamp/www/putinzenjering/app/Http/Middleware/IsAdmin.php</file>
         </group>
     </open-files>
 </project-private>

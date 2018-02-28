@@ -27,6 +27,6 @@ return [
     'facebook_not_connected' => 'You are still not connected with Facebook.',
     'invalid_code' => 'Invalid confirmation code.',
     'success_confirmation' => 'You have successfully confirmed your email. You can login now!',
-    'success_registration' => 'You are successfully registred! Please confirm your email.',
+    'success_registration' => 'User successfully created!',
     
 ];

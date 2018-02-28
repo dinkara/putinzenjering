@@ -4,9 +4,9 @@ use Illuminate\Http\Request;
 
 //Default auth routes
 Route::post('login', 'Auth\AuthController@login');
-Route::post('auth/facebook', 'Auth\AuthController@facebookAuth');
-Route::post('auth/google', 'Auth\AuthController@googleAuth');
-Route::post('register', 'Auth\AuthController@register');
+//Route::post('auth/facebook', 'Auth\AuthController@facebookAuth');
+//Route::post('auth/google', 'Auth\AuthController@googleAuth');
+//Route::post('register', 'Auth\AuthController@register');
 Route::post('forgot/password', 'Auth\ForgotPasswordController@forgot');
 Route::get('email/confirmation/{confirmation_code}', 'Auth\AuthController@confirmEmail');
 Route::post('password/reset', 'Auth\ForgotPasswordController@resetPassword');
@@ -16,6 +16,81 @@ Route::middleware(['dinkoapi.auth', 'user.check.status'])->group(function (){
     Route::get('token/refresh', 'Auth\AuthController@getToken');
     Route::post('logout', 'Auth\AuthController@logout');    
     
+    Route::middleware(['is.admin'])->group(function (){
+        Route::group(['prefix' => 'admin'], function(){
+            
+            /*===================== RoleController route section =====================*/
+            Route::group(['prefix' => 'roles'], function(){
+                Route::get("/", 'Admin\RoleController@index');
+            });
+            /* End RoleController route section */
+            
+            /*===================== UserController route section =====================*/
+            Route::group(['prefix' => 'users'], function(){
+            
+                Route::get("/", 'Admin\UserController@index');
+                Route::post("/", 'Admin\UserController@store');
+                Route::get("paginate", 'Admin\UserController@paginate');
+                
+                Route::group(['prefix' => '{id}'], function(){ 
+                    
+                    Route::get("/", 'Admin\UserController@show');
+                    Route::put("/", 'Admin\UserController@update');
+                    Route::delete("/", 'Admin\UserController@destroy');
+
+                    Route::get('roles', 'Admin\UserController@allRoles');
+
+                    Route::get('roles/paginate', 'Admin\UserController@paginatedRoles');
+
+                    Route::get('social-networks', 'Admin\UserController@allSocialNetworks');
+
+                    Route::get('social-networks/paginate', 'Admin\UserController@paginatedSocialNetworks');
+
+                    Route::get('projects', 'Admin\UserController@allProjects');
+
+                    Route::get('projects/paginate', 'Admin\UserController@paginatedProjects');
+
+                    Route::get('reviews', 'Admin\UserController@allReviews');
+
+                    Route::get('reviews/paginate', 'Admin\UserController@paginatedReviews');
+
+                    Route::get('loadings', 'Admin\UserController@allLoadings');
+
+                    Route::get('loadings/paginate', 'Admin\UserController@paginatedLoadings');
+
+                    Route::post('roles/{role_id}', 'Admin\UserController@attachRole');                
+                    Route::post('projects/{project_id}', 'Admin\UserController@attachProject');
+
+                    Route::delete('roles/{role_id}', 'Admin\UserController@detachRole');                
+                    Route::delete('projects/{project_id}', 'Admin\UserController@detachProject');
+                });
+            });
+            /* End UserController route section */
+            
+            /*===================== ProjectController route section =====================*/
+            Route::group(['prefix' => 'projects'], function(){
+                Route::get('paginate', 'Admin\ProjectController@paginate');
+
+                Route::get('{id}/orders', 'Admin\ProjectController@allOrders');
+
+                Route::get('{id}/orders/paginate', 'Admin\ProjectController@paginatedOrders');
+
+                Route::get('{id}/users', 'Admin\ProjectController@allUsers');
+
+                Route::get('{id}/users/paginate', 'Admin\ProjectController@paginatedUsers');
+
+
+
+            });   
+
+            Route::apiResource('projects', 'Admin\ProjectController', [
+                'parameters' => [
+                    'projects' => 'id'
+                ]
+            ]);
+            /* End ProjectController route section */
+        });
+    });
     /*===================== CategoryController route section =====================*/
     Route::group(['prefix' => 'categories'], function(){
         Route::get('paginate', 'CategoryController@paginate');
@@ -23,8 +98,6 @@ Route::middleware(['dinkoapi.auth', 'user.check.status'])->group(function (){
         Route::get('{id}/orders', 'CategoryController@allOrders');
 
         Route::get('{id}/orders/paginate', 'CategoryController@paginatedOrders');
-
-
 
     });   
 
@@ -111,6 +184,9 @@ Route::middleware(['dinkoapi.auth', 'user.check.status'])->group(function (){
     Route::apiResource('projects', 'ProjectController', [
         'parameters' => [
             'projects' => 'id'
+        ],
+        'except' => [
+            'store', 'update', 'destroy'
         ]
     ]);
     /* End ProjectController route section */
