@@ -16,7 +16,7 @@ class StoreImageRequest extends ApiRequest
     public function rules()
     {
         return [
-	    //'review_id' => 'required',
+	    'review_id' => 'required',
 	    //'loading_id' => 'required',
 	    'url' => 'required|image',
 

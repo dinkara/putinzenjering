@@ -32,9 +32,22 @@ class Review extends Model
      *
      * @var array
      */
-    protected $displayable = ['description', 'position'];
+    protected $displayable = ['created_at', 'updated_at', 'description', 'position'];
     
     public $timestamps = true;
+    
+    public function status(){
+        $questions = $this->questions;
+        $status = true;
+        
+        foreach($questions as $question){
+            if($question->pivot->status != 1){
+                return false;
+            }
+        }
+        
+        return $status;
+    }
     
     public function questions($q = null, $orderBy = null)
     {

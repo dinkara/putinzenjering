@@ -22,7 +22,9 @@ class ReviewTransformer extends ApiTransformer{
      */
     public function transform(Review $item)
     {
-        return $this->transformFromModel($item, $this->pivotAttributes);
+        $data = $this->transformFromModel($item, $this->pivotAttributes); 
+        $data["status"] = $item->status();
+        return $data;
     }
     
     public function includeLoading(Review $item)
