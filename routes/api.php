@@ -90,22 +90,22 @@ Route::middleware(['dinkoapi.auth', 'user.check.status'])->group(function (){
             ]);
             /* End ProjectController route section */
             
-                /*===================== CategoryController route section =====================*/
-                Route::group(['prefix' => 'categories'], function(){
-                    Route::get('paginate', 'Admin\CategoryController@paginate');
+            /*===================== CategoryController route section =====================*/
+            Route::group(['prefix' => 'categories'], function(){
+                Route::get('paginate', 'Admin\CategoryController@paginate');
 
-                    Route::get('{id}/orders', 'Admin\CategoryController@allOrders');
+                Route::get('{id}/orders', 'Admin\CategoryController@allOrders');
 
-                    Route::get('{id}/orders/paginate', 'Admin\CategoryController@paginatedOrders');
+                Route::get('{id}/orders/paginate', 'Admin\CategoryController@paginatedOrders');
 
-                });   
+            });   
 
-                Route::apiResource('categories', 'Admin\CategoryController', [
-                    'parameters' => [
-                        'categories' => 'id'
-                    ]
-                ]);
-                /* End CategoryController route section */
+            Route::apiResource('categories', 'Admin\CategoryController', [
+                'parameters' => [
+                    'categories' => 'id'
+                ]
+            ]);
+            /* End CategoryController route section */
     
             /*===================== QuestionController route section =====================*/
             Route::group(['prefix' => 'questions'], function(){
@@ -148,6 +148,32 @@ Route::middleware(['dinkoapi.auth', 'user.check.status'])->group(function (){
                 ]
             ]);
             /* End OrderController route section */
+            
+            /*===================== ReviewController route section =====================*/
+                Route::group(['prefix' => 'reviews'], function(){
+                    Route::get('paginate', 'Admin\ReviewController@paginate');
+
+                    Route::get('{id}/questions', 'Admin\ReviewController@allQuestions');
+
+                    Route::get('{id}/questions/paginate', 'Admin\ReviewController@paginatedQuestions');
+
+                    Route::get('{id}/images', 'Admin\ReviewController@allImages');
+
+                    Route::get('{id}/images/paginate', 'Admin\ReviewController@paginatedImages');
+
+                    Route::post('{id}/questions/{question_id}', 'Admin\ReviewController@attachQuestion');
+
+                    Route::delete('{id}/questions/{question_id}', 'Admin\ReviewController@detachQuestion');
+
+                });   
+
+                Route::apiResource('reviews', 'Admin\ReviewController', [
+                    'parameters' => [
+                        'reviews' => 'id'
+                    ]
+                ]);
+                /* End ReviewController route section */
+    
         });
     });
     
