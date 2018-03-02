@@ -29,64 +29,7 @@ class CategoryController extends ResourceController
     
     
     }
-    
-    /**
-     * Create item
-     * 
-     * Store a newly created item in storage.
-     *
-     * @param  App\Http\Requests\StoreCategoryRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreCategoryRequest $request)
-    {       
-        $data = $request->only($this->repo->getModel()->getFillable());
-
-	
-        return $this->storeItem($data);
-    }
-
-    /**
-     * Update item 
-     * 
-     * Update the specified item in storage.
-     *
-     * @param  App\Http\Requests\UpdateCategoryRequest  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateCategoryRequest $request, $id)
-    {
-        $data = $request->only($this->repo->getModel()->getFillable());        
-        $item = $this->repo->find($id);
-
-	
-        return $this->updateItem($data, $id);
-    }
-
-        /**
-     * Remove item
-     * 
-     * Remove the specified item from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        try{
-            if($item = $this->repo->find($id)){
-                
-                $item->delete($id);
-                return ApiResponse::ItemDeleted($this->repo->getModel());
-            }
-        } catch (QueryException $e) {
-            return ApiResponse::InternalError($e->getMessage());
-        } 
         
-        return ApiResponse::ItemNotFound($this->repo->getModel());       
-    }
-    
     /**
      * Get all Order for Category with given $id
      *

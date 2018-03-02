@@ -3,29 +3,33 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreProjectRequest;
-use App\Http\Requests\UpdateProjectRequest;
-use App\Repositories\Project\IProjectRepo;
-use App\Transformers\ProjectTransformer;
+use App\Http\Requests\StoreOrderRequest;
+use App\Http\Requests\UpdateOrderRequest;
+use App\Repositories\Order\IOrderRepo;
+use App\Transformers\OrderTransformer;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Dinkara\DinkoApi\Http\Controllers\ResourceController;
 use Storage;
 use ApiResponse;
-use App\Transformers\OrderTransformer;
-use App\Transformers\UserTransformer;
+use App\Transformers\ReviewTransformer;
+use App\Transformers\LoadingTransformer;
 
 
 /**
- * @resource Project
+ * @resource Order
  */
-class ProjectController extends ResourceController
+class OrderController extends ResourceController
 {
 
     
     
-    public function __construct(IProjectRepo $repo, ProjectTransformer $transformer) {
+    public function __construct(IOrderRepo $repo, OrderTransformer $transformer) {
         parent::__construct($repo, $transformer);
 	
+        $this->middleware('exists.category:category_id,true', ['only' => ['store']]);
+
+        $this->middleware('exists.project:project_id,true', ['only' => ['store']]);
+
     
     
     
@@ -36,10 +40,10 @@ class ProjectController extends ResourceController
      * 
      * Store a newly created item in storage.
      *
-     * @param  App\Http\Requests\StoreProjectRequest  $request
+     * @param  App\Http\Requests\StoreOrderRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProjectRequest $request)
+    public function store(StoreOrderRequest $request)
     {       
         $data = $request->only($this->repo->getModel()->getFillable());
 
@@ -52,14 +56,13 @@ class ProjectController extends ResourceController
      * 
      * Update the specified item in storage.
      *
-     * @param  App\Http\Requests\UpdateProjectRequest  $request
+     * @param  App\Http\Requests\UpdateOrderRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProjectRequest $request, $id)
+    public function update(UpdateOrderRequest $request, $id)
     {
-        $data = $request->only($this->repo->getModel()->getFillable()); 
-        
+        $data = $request->only($this->repo->getModel()->getFillable());        
         $item = $this->repo->find($id);
 
 	
@@ -90,25 +93,25 @@ class ProjectController extends ResourceController
     }
     
     /**
-     * Get all Order for Project with given $id
+     * Get all Review for Order with given $id
      *
-     * Orders from existing resource.
+     * Reviews from existing resource.
      *
      * @param Request $request
      * @param  int  $id
      * @return Dinkara\DinkoApi\Support\ApiResponse
      */
-    public function allOrders(Request $request, $id)
+    public function allReviews(Request $request, $id)
     {	   
         try{
-            return ApiResponse::Collection($this->repo->find($id)->getModel()->orders($request->q, $request->orderBy)->get(), new OrderTransformer);
+            return ApiResponse::Collection($this->repo->find($id)->getModel()->reviews($request->q, $request->orderBy)->get(), new ReviewTransformer);
         } catch (QueryException $e) {
             return ApiResponse::InternalError($e->getMessage());
         }
     }
 
     /**
-     * Paginated Order for Project with given $id 
+     * Paginated Review for Order with given $id 
      * 
      * Display a list of paginated items .
      *
@@ -116,14 +119,14 @@ class ProjectController extends ResourceController
      * @param  int  $id
      * @return Dinkara\DinkoApi\Support\ApiResponse
      */
-    public function paginatedOrders(Request $request, $id)
+    public function paginatedReviews(Request $request, $id)
     {   
         try{    
             if($pagination = $request->pagination){
-                return ApiResponse::Pagination($this->repo->find($id)->getModel()->orders($request->q, $request->orderBy)->paginate($pagination), new OrderTransformer); 
+                return ApiResponse::Pagination($this->repo->find($id)->getModel()->reviews($request->q, $request->orderBy)->paginate($pagination), new ReviewTransformer); 
             }
             else{
-                return ApiResponse::Pagination($this->repo->find($id)->getModel()->orders($request->q, $request->orderBy)->paginate(), new OrderTransformer); 
+                return ApiResponse::Pagination($this->repo->find($id)->getModel()->reviews($request->q, $request->orderBy)->paginate(), new ReviewTransformer); 
             }   
             
         } catch (QueryException $e) {
@@ -131,25 +134,25 @@ class ProjectController extends ResourceController
         } 
     }
     /**
-     * Get all User for Project with given $id
+     * Get all Loading for Order with given $id
      *
-     * Users from existing resource.
+     * Loadings from existing resource.
      *
      * @param Request $request
      * @param  int  $id
      * @return Dinkara\DinkoApi\Support\ApiResponse
      */
-    public function allUsers(Request $request, $id)
+    public function allLoadings(Request $request, $id)
     {	   
         try{
-            return ApiResponse::Collection($this->repo->find($id)->getModel()->users($request->q, $request->orderBy)->get(), new UserTransformer);
+            return ApiResponse::Collection($this->repo->find($id)->getModel()->loadings($request->q, $request->orderBy)->get(), new LoadingTransformer);
         } catch (QueryException $e) {
             return ApiResponse::InternalError($e->getMessage());
         }
     }
 
     /**
-     * Paginated User for Project with given $id 
+     * Paginated Loading for Order with given $id 
      * 
      * Display a list of paginated items .
      *
@@ -157,14 +160,14 @@ class ProjectController extends ResourceController
      * @param  int  $id
      * @return Dinkara\DinkoApi\Support\ApiResponse
      */
-    public function paginatedUsers(Request $request, $id)
+    public function paginatedLoadings(Request $request, $id)
     {   
         try{    
             if($pagination = $request->pagination){
-                return ApiResponse::Pagination($this->repo->find($id)->getModel()->users($request->q, $request->orderBy)->paginate($pagination), new UserTransformer); 
+                return ApiResponse::Pagination($this->repo->find($id)->getModel()->loadings($request->q, $request->orderBy)->paginate($pagination), new LoadingTransformer); 
             }
             else{
-                return ApiResponse::Pagination($this->repo->find($id)->getModel()->users($request->q, $request->orderBy)->paginate(), new UserTransformer); 
+                return ApiResponse::Pagination($this->repo->find($id)->getModel()->loadings($request->q, $request->orderBy)->paginate(), new LoadingTransformer); 
             }   
             
         } catch (QueryException $e) {

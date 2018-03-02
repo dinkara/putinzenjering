@@ -16,8 +16,8 @@ class UpdateProfileRequest extends ApiRequest
     public function rules()
     {
         return [
-	    'name' => 'required',
-
+            'email' => 'required',
+	    'name' => 'required',            
         ];
     }
 }

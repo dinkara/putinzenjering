@@ -25,7 +25,7 @@ class Project extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'location', 'description'];
+    protected $fillable = ['name', 'location', 'description', 'status'];
     
     /**
      * The attributes that are will be shown in transformer

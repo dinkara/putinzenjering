@@ -16,7 +16,7 @@ namespace App\Support\Enum;
 class ProjectStatuses {
     
     const IN_PROGRESS = "In progress";
-    const COMPLETED = " Completed";
+    const COMPLETED = "Completed";
 
     
     public static function all() {

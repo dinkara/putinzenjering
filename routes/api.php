@@ -89,8 +89,68 @@ Route::middleware(['dinkoapi.auth', 'user.check.status'])->group(function (){
                 ]
             ]);
             /* End ProjectController route section */
+            
+                /*===================== CategoryController route section =====================*/
+                Route::group(['prefix' => 'categories'], function(){
+                    Route::get('paginate', 'Admin\CategoryController@paginate');
+
+                    Route::get('{id}/orders', 'Admin\CategoryController@allOrders');
+
+                    Route::get('{id}/orders/paginate', 'Admin\CategoryController@paginatedOrders');
+
+                });   
+
+                Route::apiResource('categories', 'Admin\CategoryController', [
+                    'parameters' => [
+                        'categories' => 'id'
+                    ]
+                ]);
+                /* End CategoryController route section */
+    
+            /*===================== QuestionController route section =====================*/
+            Route::group(['prefix' => 'questions'], function(){
+                Route::get('paginate', 'Admin\QuestionController@paginate');
+
+                Route::get('{id}/reviews', 'Admin\QuestionController@allReviews');
+
+                Route::get('{id}/reviews/paginate', 'Admin\QuestionController@paginatedReviews');
+
+
+
+            });   
+
+            Route::apiResource('questions', 'Admin\QuestionController', [
+                'parameters' => [
+                    'questions' => 'id'
+                ]
+            ]);
+            /* End QuestionController route section */
+            
+            /*===================== OrderController route section =====================*/
+            Route::group(['prefix' => 'orders'], function(){
+                Route::get('paginate', 'Admin\OrderController@paginate');
+
+                Route::get('{id}/reviews', 'Admin\OrderController@allReviews');
+
+                Route::get('{id}/reviews/paginate', 'Admin\OrderController@paginatedReviews');
+
+                Route::get('{id}/loadings', 'Admin\OrderController@allLoadings');
+
+                Route::get('{id}/loadings/paginate', 'Admin\OrderController@paginatedLoadings');
+
+
+
+            });   
+
+            Route::apiResource('orders', 'Admin\OrderController', [
+                'parameters' => [
+                    'orders' => 'id'
+                ]
+            ]);
+            /* End OrderController route section */
         });
     });
+    
     /*===================== CategoryController route section =====================*/
     Route::group(['prefix' => 'categories'], function(){
         Route::get('paginate', 'CategoryController@paginate');
@@ -104,6 +164,9 @@ Route::middleware(['dinkoapi.auth', 'user.check.status'])->group(function (){
     Route::apiResource('categories', 'CategoryController', [
         'parameters' => [
             'categories' => 'id'
+        ],
+        'except' => [
+            'store', 'update', 'destroy'
         ]
     ]);
     /* End CategoryController route section */
@@ -161,6 +224,9 @@ Route::middleware(['dinkoapi.auth', 'user.check.status'])->group(function (){
     Route::apiResource('orders', 'OrderController', [
         'parameters' => [
             'orders' => 'id'
+        ],
+        'except' => [
+            'store', 'update', 'destroy'
         ]
     ]);
     /* End OrderController route section */
@@ -206,6 +272,9 @@ Route::middleware(['dinkoapi.auth', 'user.check.status'])->group(function (){
     Route::apiResource('questions', 'QuestionController', [
         'parameters' => [
             'questions' => 'id'
+        ],
+        'except' => [
+            'store', 'update', 'destroy'
         ]
     ]);
     /* End QuestionController route section */

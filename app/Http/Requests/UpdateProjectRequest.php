@@ -20,7 +20,7 @@ class UpdateProjectRequest extends ApiRequest
 	    'name' => 'required',
 	    'location' => 'required',
 	    'description' => 'required',
-
+            'status' => 'required'
         ];
     }
 }

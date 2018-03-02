@@ -57,6 +57,7 @@ class UserController extends ResourceController
 
         $this->middleware('exists.project:project_id,true', ['only' => ['attachProject', 'detachProject']]);
 
+        $this->middleware('exists.user:id,false', ['only' => ['show', "update"]]);
     
     	$this->roleRepo = $roleRepo;
 	$this->socialNetworkRepo = $socialNetworkRepo;
@@ -126,9 +127,13 @@ class UserController extends ResourceController
     {       
             try {
                 $user = $this->repo->find($id)->getModel();
-                $data = $request->only(array_keys($request->rules()));
+
+                $requestKeys = array_keys($request->rules());
+                $userData = $request->only(array_intersect($requestKeys, $this->repo->getModel()->getFillable()));
+                $profileData = $request->only(array_intersect($requestKeys, $this->profileRepo->getModel()->getFillable()));                
                 
-                if( $item = $this->profileRepo->find($user->profile->id)->update($data)){
+                $this->repo->update($userData);
+                if( $item = $this->profileRepo->find($user->profile->id)->update($profileData)){
                     //refresh user after update
                     return ApiResponse::ItemUpdated($this->repo->find($user->id)->getModel(), new $this->transformer, class_basename($this->repo->getModel()));
                 }
