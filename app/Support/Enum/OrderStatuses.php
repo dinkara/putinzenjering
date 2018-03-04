@@ -16,8 +16,8 @@ namespace App\Support\Enum;
 class OrderStatuses {
     
     const NEW = "New";
-    const IN_PROGRESS = " In progress";
-    const COMPLETED = " Completed";
+    const IN_PROGRESS = "In progress";
+    const COMPLETED = "Completed";
 
     
     public static function all() {

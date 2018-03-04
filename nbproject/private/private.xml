@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/wamp/www/putinzenjering/app/Repositories/Order/EloquentOrder.php</file>
             <file>file:/C:/wamp/www/putinzenjering/app/Http/Requests/StoreImageRequest.php</file>
             <file>file:/C:/wamp/www/putinzenjering/app/Http/Controllers/Admin/RoleController.php</file>
             <file>file:/C:/wamp/www/putinzenjering/app/Http/Requests/UpdateOrderRequest.php</file>
@@ -22,11 +23,13 @@
             <file>file:/C:/wamp/www/putinzenjering/app/Http/Controllers/CategoryController.php</file>
             <file>file:/C:/wamp/www/putinzenjering/app/Http/Controllers/Admin/QuestionController.php</file>
             <file>file:/C:/wamp/www/putinzenjering/app/Models/Project.php</file>
+            <file>file:/C:/wamp/www/putinzenjering/app/Repositories/Project/EloquentProject.php</file>
             <file>file:/C:/wamp/www/putinzenjering/app/Http/Requests/UpdateImageRequest.php</file>
             <file>file:/C:/wamp/www/putinzenjering/app/Http/Requests/UserAttachRoleRequest.php</file>
             <file>file:/C:/wamp/www/putinzenjering/app/Http/Requests/UpdateQuestionRequest.php</file>
             <file>file:/C:/wamp/www/putinzenjering/database/seeds/QuestionsSeeder.php</file>
             <file>file:/C:/wamp/www/putinzenjering/app/Models/Question.php</file>
+            <file>file:/C:/wamp/www/putinzenjering/app/Repositories/Order/IOrderRepo.php</file>
             <file>file:/C:/wamp/www/putinzenjering/app/Support/Enum/ProjectStatuses.php</file>
             <file>file:/C:/wamp/www/putinzenjering/app/Http/Middleware/IsAdmin.php</file>
             <file>file:/C:/wamp/www/putinzenjering/app/Http/Controllers/OrderController.php</file>
@@ -34,12 +37,14 @@
             <file>file:/C:/wamp/www/putinzenjering/public/postman/collection.json</file>
             <file>file:/C:/wamp/www/putinzenjering/app/Http/Requests/UpdateLoadingRequest.php</file>
             <file>file:/C:/wamp/www/putinzenjering/database/seeds/RoleSeeder.php</file>
+            <file>file:/C:/wamp/www/putinzenjering/app/Support/Enum/OrderStatuses.php</file>
             <file>file:/C:/wamp/www/putinzenjering/database/seeds/AdminSeeder.php</file>
             <file>file:/C:/wamp/www/putinzenjering/app/Http/Requests/UpdateProfileRequest.php</file>
             <file>file:/C:/wamp/www/putinzenjering/app/Http/Controllers/Admin/ProjectController.php</file>
             <file>file:/C:/wamp/www/putinzenjering/app/Http/Controllers/UserController.php</file>
             <file>file:/C:/wamp/www/putinzenjering/app/Http/Controllers/ProjectController.php</file>
             <file>file:/C:/wamp/www/putinzenjering/app/Http/Controllers/Admin/CategoryController.php</file>
+            <file>file:/C:/wamp/www/putinzenjering/app/Repositories/Profile/EloquentProfile.php</file>
             <file>file:/C:/wamp/www/putinzenjering/app/Http/Controllers/QuestionController.php</file>
             <file>file:/C:/wamp/www/putinzenjering/app/Repositories/User/EloquentUser.php</file>
             <file>file:/C:/wamp/www/putinzenjering/app/Http/Middleware/UserExists.php</file>
@@ -48,6 +53,7 @@
             <file>file:/C:/wamp/www/putinzenjering/routes/api.php</file>
             <file>file:/C:/wamp/www/putinzenjering/app/Support/Enum/Questions.php</file>
             <file>file:/C:/wamp/www/putinzenjering/app/Transformers/ProjectTransformer.php</file>
+            <file>file:/C:/wamp/www/putinzenjering/app/Repositories/Project/IProjectRepo.php</file>
             <file>file:/C:/wamp/www/putinzenjering/app/Http/Controllers/Admin/OrderController.php</file>
             <file>file:/C:/wamp/www/putinzenjering/app/Http/Requests/UpdateProjectRequest.php</file>
             <file>file:/C:/wamp/www/putinzenjering/app/Http/Controllers/LoadingController.php</file>

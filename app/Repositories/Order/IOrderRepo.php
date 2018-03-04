@@ -11,5 +11,5 @@ use Dinkara\RepoBuilder\Repositories\IRepo;
 interface IOrderRepo extends IRepo {
    
 
-
+    function checkToUpdateStatus();
 }

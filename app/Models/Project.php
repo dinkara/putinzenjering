@@ -18,7 +18,7 @@ class Project extends Model
      *
      * @var array
      */
-    protected $searchableColumns = ['name', 'location', 'description', 'status'];
+    protected $searchableColumns = ['name', 'location', 'description'];
     
     /**
      * The attributes that are mass assignable.

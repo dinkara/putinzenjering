@@ -38,6 +38,10 @@ class Review extends Model
     
     public function status(){
         $questions = $this->questions;
+        if(count($questions) == 0){
+            return false;
+        }
+        
         $status = true;
         
         foreach($questions as $question){

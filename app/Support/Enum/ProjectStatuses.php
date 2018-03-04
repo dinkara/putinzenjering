@@ -16,12 +16,14 @@ namespace App\Support\Enum;
 class ProjectStatuses {
     
     const IN_PROGRESS = "In progress";
+    const READY_FOR_LOADING = "Ready for loading";
     const COMPLETED = "Completed";
 
     
     public static function all() {
         return [
             self::IN_PROGRESS,
+            self::READY_FOR_LOADING,
             self::COMPLETED,
 
         ];

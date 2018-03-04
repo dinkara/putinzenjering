@@ -11,5 +11,5 @@ use Dinkara\RepoBuilder\Repositories\IRepo;
 interface IProjectRepo extends IRepo {
    
 
-
+    function checkToUpdateStatus();
 }

@@ -77,6 +77,7 @@ class ReviewController extends ResourceController
                 $result = $this->repo->create($data)->getModel();
                 $result->position = $count + 1;
                 $result->save();
+                $this->orderRepo->find($order_id)->checkToUpdateStatus();
                 return ApiResponse::ItemCreated($result, $this->transformer);
             } catch (QueryException $e) {
                 return ApiResponse::InternalError($e->getMessage());
@@ -100,9 +101,11 @@ class ReviewController extends ResourceController
         $data = $request->only($this->repo->getModel()->getFillable());        
         $item = $this->repo->find($id);
 
-	    $data["user_id"] = JWTAuth::parseToken()->toUser()->id;   
-    
-        return $this->updateItem($data, $id);
+        $data["user_id"] = JWTAuth::parseToken()->toUser()->id;   
+        
+        $result = $this->updateItem($data, $id);
+        $this->orderRepo->find($this->repo->getModel()->order_id)->checkToUpdateStatus();
+        return $result;
     }
 
         /**
@@ -119,6 +122,7 @@ class ReviewController extends ResourceController
             if($item = $this->repo->find($id)){
                 
                 $item->delete($id);
+                $this->orderRepo->find($this->repo->getModel()->order_id)->checkToUpdateStatus();
                 return ApiResponse::ItemDeleted($this->repo->getModel());
             }
         } catch (QueryException $e) {
@@ -227,7 +231,9 @@ class ReviewController extends ResourceController
 	    	
 	    $model = $this->questionRepo->find($question_id)->getModel();
 
-            return ApiResponse::ItemAttached($this->repo->find($id)->attachQuestion($model, $data)->getModel(), $this->transformer);
+            $this->repo->find($id)->attachQuestion($model, $data);
+            $this->orderRepo->find($this->repo->getModel()->order_id)->checkToUpdateStatus();
+            return ApiResponse::ItemAttached($this->repo->getModel(), $this->transformer);
     }
 
     
@@ -243,8 +249,10 @@ class ReviewController extends ResourceController
      */
     public function detachQuestion($id, $question_id)
     {	    	
-	$model = $this->questionRepo->find($question_id)->getModel();
-        return ApiResponse::ItemDetached($this->repo->find($id)->detachQuestion($model)->getModel());
+        $model = $this->questionRepo->find($question_id)->getModel();
+        $this->repo->find($id)->detachQuestion($model);	
+        $this->orderRepo->find($this->repo->find($id)->getModel()->order_id)->checkToUpdateStatus();
+        return ApiResponse::ItemDetached($this->repo->getModel());
     }
 
 }
