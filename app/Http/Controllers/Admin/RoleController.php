@@ -8,7 +8,7 @@ use App\Transformers\RoleTransformer;
 
 
 /**
- * @resource Role
+ * @resource Admin\Role
  */
 class RoleController extends ResourceController
 {        

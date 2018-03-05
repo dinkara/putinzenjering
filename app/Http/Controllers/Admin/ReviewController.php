@@ -20,7 +20,7 @@ use App\Transformers\ImageTransformer;
 
 
 /**
- * @resource Review
+ * @resource Admin\Review
  */
 class ReviewController extends ResourceController
 {

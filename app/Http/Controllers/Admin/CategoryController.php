@@ -15,7 +15,7 @@ use App\Transformers\OrderTransformer;
 
 
 /**
- * @resource Category
+ * @resource Admin\Category
  */
 class CategoryController extends ResourceController
 {

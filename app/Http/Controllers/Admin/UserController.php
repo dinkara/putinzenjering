@@ -28,7 +28,7 @@ use App\Transformers\LoadingTransformer;
 use App\Support\Enum\RoleTypes;
 
 /**
- * @resource User
+ * @resource Admin\User
  */
 class UserController extends ResourceController
 {

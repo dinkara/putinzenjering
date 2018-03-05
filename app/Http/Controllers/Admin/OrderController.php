@@ -16,7 +16,7 @@ use App\Transformers\LoadingTransformer;
 
 
 /**
- * @resource Order
+ * @resource Admin\Order
  */
 class OrderController extends ResourceController
 {

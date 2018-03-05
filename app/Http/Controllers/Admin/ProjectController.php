@@ -16,7 +16,7 @@ use App\Transformers\UserTransformer;
 
 
 /**
- * @resource Project
+ * @resource Admin\Project
  */
 class ProjectController extends ResourceController
 {
