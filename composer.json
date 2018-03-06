@@ -12,7 +12,8 @@
         "laravel/framework": "5.5.*",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
-        "mpociot/laravel-apidoc-generator": "^2.0"
+        "mpociot/laravel-apidoc-generator": "^2.0",
+        "vsmoraes/laravel-pdf": "^2.0"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

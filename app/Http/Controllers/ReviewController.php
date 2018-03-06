@@ -259,6 +259,7 @@ class ReviewController extends ResourceController
     public function pdf($id) {
         $review = $this->repo->find($id)->getModel();
         $pdf = PDF::loadView('pdf.review', ['review' => $review]);
+        
         return $pdf->stream('invoice.pdf');
         return view('pdf.review')->with('review', $review);
     }
