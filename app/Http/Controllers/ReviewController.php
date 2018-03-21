@@ -261,6 +261,6 @@ class ReviewController extends ResourceController
         $pdf = PDF::loadView('pdf.review', ['review' => $review]);
         
         return $pdf->stream('invoice.pdf');
-        return view('pdf.review')->with('review', $review);
+        //return view('pdf.review')->with('review', $review);
     }
 }

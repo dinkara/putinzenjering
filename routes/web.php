@@ -11,4 +11,17 @@
 |
 */
 
-Route::get("{id}/pdf", 'ReviewController@pdf');
+Route::middleware(['is.admin'])->group(function (){
+    Route::group(['prefix' => 'admin'], function(){
+
+        /*===================== ReviewController route section =====================*/
+        Route::group(['prefix' => 'reviews'], function(){                   
+
+            Route::get('{id}/pdf', 'Admin\ReviewController@pdf');                                       
+
+        });
+        /* End ReviewController route section */
+    });
+});
+
+//Route::get("{id}/pdf", 'ReviewController@pdf');

@@ -130,6 +130,8 @@ Route::middleware(['dinkoapi.auth', 'user.check.status'])->group(function (){
             Route::group(['prefix' => 'orders'], function(){
                 Route::get('paginate', 'Admin\OrderController@paginate');
 
+                Route::post('{id}/pdf', 'Admin\OrderController@pdf');
+                
                 Route::get('{id}/reviews', 'Admin\OrderController@allReviews');
 
                 Route::get('{id}/reviews/paginate', 'Admin\OrderController@paginatedReviews');
@@ -153,6 +155,8 @@ Route::middleware(['dinkoapi.auth', 'user.check.status'])->group(function (){
                 Route::group(['prefix' => 'reviews'], function(){
                     Route::get('paginate', 'Admin\ReviewController@paginate');
 
+                    Route::post('{id}/pdf', 'Admin\ReviewController@pdf');
+                    
                     Route::get('{id}/questions', 'Admin\ReviewController@allQuestions');
 
                     Route::get('{id}/questions/paginate', 'Admin\ReviewController@paginatedQuestions');

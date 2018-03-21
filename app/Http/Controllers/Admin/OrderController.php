@@ -13,7 +13,7 @@ use Storage;
 use ApiResponse;
 use App\Transformers\ReviewTransformer;
 use App\Transformers\LoadingTransformer;
-
+use PDF;
 
 /**
  * @resource Admin\Order
@@ -175,6 +175,13 @@ class OrderController extends ResourceController
         } 
     }
 
+    public function pdf($id) {
+        $reviews = $this->repo->find($id)->getModel()->reviews;
+        
+        $pdf = PDF::loadView('pdf.multiple', ['reviews' => $reviews]);
+        
+        return $pdf->stream('reviews.pdf');        
+    }
 
 
 }
