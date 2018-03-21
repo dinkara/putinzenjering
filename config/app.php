@@ -204,7 +204,8 @@ return [
         Dinkara\RepoBuilder\RepositoryBuilderServiceProvider::class,
         Dinkara\DinkoApi\Providers\DinkoApiServiceProvider::class,
         Dinkara\DinkoApi\Providers\ApiResponseServiceProvider::class,
-        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class
+        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
         
 
     ],
@@ -258,6 +259,7 @@ return [
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'ApiResponse' => Dinkara\DinkoApi\Facades\ResponseFacade::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
     ],
 

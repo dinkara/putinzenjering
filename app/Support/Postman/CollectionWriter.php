@@ -11,7 +11,7 @@ class CollectionWriter
      * @var Collection
      */
     private $routeGroups;
-
+    private $adminRoutes;
     /**
      * CollectionWriter constructor.
      *
@@ -20,6 +20,7 @@ class CollectionWriter
     public function __construct(Collection $routeGroups)
     {
         $this->routeGroups = $routeGroups;
+        $this->adminRoutes = ['name' => 'Admin', 'item' => []];
     }
 
     public function getCollection()
@@ -34,11 +35,39 @@ class CollectionWriter
                 'description' => '',
                 'schema' => 'https://schema.getpostman.com/json/collection/v2.0.0/collection.json',
             ],
-            'item' => $this->routeGroups->map(function ($routes, $groupName) {
+            'item' => $this->items(),
+        ];
+        $collection['item'] = $this->array_non_empty_items($collection['item']);
+        array_push($collection['item'], $this->adminRoutes);
+        return json_encode($collection);
+    }
+    
+    private function items() {
+        return $this->routeGroups->map(function ($routes, $groupName) {
+            if (strpos($groupName, 'Admin\\') !== false){
+                $names = explode("\\", $groupName);
+                $item = [
+                    'name' => $names[1],
+                    'description' => '',
+                    'item' => $this->item($routes),
+                    "_postman_isSubFolder" => true
+                ];
+                array_push($this->adminRoutes['item'], $item);
+                return;
+            }
+            else{
                 return [
                     'name' => $groupName,
                     'description' => '',
-                    'item' => $routes->map(function ($route) {
+                    'item' => $this->item($routes),
+                ];
+            }
+
+            })->values()->toArray();
+    }
+    
+    private function item($routes) {
+        return $routes->map(function ($route) {
                         $event = [];
                         $header = [];
                         if($route['title'] === "Login" || $route['title'] === "Refresh token"){
@@ -93,9 +122,9 @@ class CollectionWriter
                                     $mode => collect($route['parameters'])->map(function ($parameter, $key) {
                                         $param = "";
                                         if($key === "email"){
-                                            $param = "ndzakovic@yahoo.com";
+                                            $param = "putin@yahoo.com";
                                         }else if($key === "password"){
-                                            $param = "prasence123";
+                                            $param = "putin123";
                                         }else if(isset($parameter['value'])){
                                             $param = $parameter['value'];
                                         }
@@ -111,11 +140,16 @@ class CollectionWriter
                                 'response' => [],
                             ],
                         ];
-                    })->toArray(),
-                ];
-            })->values()->toArray(),
-        ];
-
-        return json_encode($collection);
+                    })->toArray();
+    }
+    
+    private function array_non_empty_items($input) {      
+        $result = [];  
+        foreach ($input as $value) {
+          if($value) {
+              array_push($result, $value);
+          }
+        }
+        return $result;
     }
 }

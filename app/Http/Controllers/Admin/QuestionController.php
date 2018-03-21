@@ -15,7 +15,7 @@ use App\Transformers\ReviewTransformer;
 
 
 /**
- * @resource Question
+ * @resource Admin\Question
  */
 class QuestionController extends ResourceController
 {

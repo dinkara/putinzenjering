@@ -17,6 +17,7 @@ use App\Http\Requests\ReviewAttachQuestionRequest;
 use App\Repositories\Question\IQuestionRepo;
 use App\Transformers\QuestionTransformer;
 use App\Transformers\ImageTransformer;
+use PDF;
 
 
 /**
@@ -255,4 +256,11 @@ class ReviewController extends ResourceController
         return ApiResponse::ItemDetached($this->repo->getModel());
     }
 
+    public function pdf($id) {
+        $review = $this->repo->find($id)->getModel();
+        $pdf = PDF::loadView('pdf.review', ['review' => $review]);
+        
+        return $pdf->stream('invoice.pdf');
+        return view('pdf.review')->with('review', $review);
+    }
 }

@@ -191,8 +191,8 @@ Route::middleware(['dinkoapi.auth', 'user.check.status'])->group(function (){
         'parameters' => [
             'categories' => 'id'
         ],
-        'except' => [
-            'store', 'update', 'destroy'
+        'only' => [
+            'index', 'show'
         ]
     ]);
     /* End CategoryController route section */
@@ -251,8 +251,8 @@ Route::middleware(['dinkoapi.auth', 'user.check.status'])->group(function (){
         'parameters' => [
             'orders' => 'id'
         ],
-        'except' => [
-            'store', 'update', 'destroy'
+        'only' => [
+            'index', 'show'
         ]
     ]);
     /* End OrderController route section */
@@ -277,8 +277,8 @@ Route::middleware(['dinkoapi.auth', 'user.check.status'])->group(function (){
         'parameters' => [
             'projects' => 'id'
         ],
-        'except' => [
-            'store', 'update', 'destroy'
+        'only' => [
+            'index', 'show'
         ]
     ]);
     /* End ProjectController route section */
@@ -299,8 +299,8 @@ Route::middleware(['dinkoapi.auth', 'user.check.status'])->group(function (){
         'parameters' => [
             'questions' => 'id'
         ],
-        'except' => [
-            'store', 'update', 'destroy'
+        'only' => [
+            'index', 'show'
         ]
     ]);
     /* End QuestionController route section */
