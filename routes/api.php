@@ -187,7 +187,7 @@ Route::middleware(['dinkoapi.auth', 'user.check.status'])->group(function (){
 
     });   
 
-    Route::apiResource('categories', 'CategoryController', [
+    Route::resource('categories', 'CategoryController', [
         'parameters' => [
             'categories' => 'id'
         ],

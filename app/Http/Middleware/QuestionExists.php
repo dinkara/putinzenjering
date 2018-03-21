@@ -27,7 +27,8 @@ class QuestionExists extends DinkoApiExistsMiddleware
      * @return mixed
      */
     public function handle($request, Closure $next, $key = 'question_id', $isForeign = false)
-    {                        
+    {   
+        
         $this->id = $request->id;
         
         if($isForeign){            
@@ -36,11 +37,12 @@ class QuestionExists extends DinkoApiExistsMiddleware
             if(!$this->id){
                 $this->id = eval('return $request->'.$key.';');
             }
-        }
+        }                
         
-        if(!$this->id){
+        if($this->id === null){
             return $next($request);
         }
+        
         
 	return parent::handle($request, $next);			
     }

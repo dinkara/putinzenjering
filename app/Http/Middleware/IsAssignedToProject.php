@@ -8,7 +8,7 @@ use App\Support\Enum\RoleTypes;
 use ApiResponse;
 use Lang;
 
-class IsAdmin
+class IsAssignedToProject
 {
     /**
      * Handle an incoming request.

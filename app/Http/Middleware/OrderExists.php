@@ -38,7 +38,7 @@ class OrderExists extends DinkoApiExistsMiddleware
             }
         }
         
-        if(!$this->id){
+        if($this->id === null){
             return $next($request);
         }
         
