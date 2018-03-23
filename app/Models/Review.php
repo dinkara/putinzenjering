@@ -18,7 +18,7 @@ class Review extends Model
      *
      * @var array
      */
-    protected $searchableColumns = ['description', 'position'];
+    protected $searchableColumns = ['description', 'position', 'order.description', 'order.project.name'];
     
     /**
      * The attributes that are mass assignable.
