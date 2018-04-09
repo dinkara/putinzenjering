@@ -6,6 +6,7 @@ use Dinkara\RepoBuilder\Repositories\EloquentRepo;
 use App\Models\Project;
 use App\Support\Enum\ProjectStatuses;
 use App\Support\Enum\OrderStatuses;
+use App\Models\User;
 
 class EloquentProject extends EloquentRepo implements IProjectRepo {
 
@@ -47,6 +48,25 @@ class EloquentProject extends EloquentRepo implements IProjectRepo {
         $result = $this->model->save();
         return $this->finalize($result);
     }
-    
+
+    public function attachUser(User $model, array $data = array()) {
+        if (!$this->model) {
+            return false;
+        }	
+        
+        $result = $this->model->users()->attach($model, $data);
+        
+        return $this->finalize($this->model);
+    }
+
+    public function detachUser(User $model) {
+        if (!$this->model) {
+            return false;
+        }
+	
+        $result = $this->model->users()->detach($model);
+        
+        return $this->finalize($this->model);
+    }
 
 }

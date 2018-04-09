@@ -70,13 +70,20 @@ class ReviewController extends ResourceController
 
         $data["user_id"] = JWTAuth::parseToken()->toUser()->id;
         $order_id = $request->get('order_id');
-        $order = $this->orderRepo->find($order_id)->getModel();
-        $count = count($order->reviews);
-        $data['position'] = $count + 1;
+        $order = $this->orderRepo->find($order_id)->getModel();                
+        $count = count($order->reviews);        
         if($count < $order->quantity){
             try {
+                $position = $order->reviews[count($order->reviews)-1]->position + 1;                
+                if($position > $order->quantity){
+                    $difference = array_diff(range(1, $order->quantity), $order->reviews->pluck('position')->toArray());                    
+                    //dd($difference);
+                    if($difference && count($difference) > 0){
+                        $position = array_values($difference)[0];
+                    }
+                }
                 $result = $this->repo->create($data)->getModel();
-                $result->position = $count + 1;
+                $result->position = $position;
                 $result->save();
                 $this->orderRepo->find($order_id)->checkToUpdateStatus();
                 return ApiResponse::ItemCreated($result, $this->transformer);

@@ -13,7 +13,8 @@ use Storage;
 use ApiResponse;
 use App\Transformers\OrderTransformer;
 use App\Transformers\UserTransformer;
-
+use App\Http\Requests\UserAttachProjectRequest;
+use App\Repositories\User\IUserRepo;
 
 /**
  * @resource Admin\Project
@@ -21,12 +22,15 @@ use App\Transformers\UserTransformer;
 class ProjectController extends ResourceController
 {
 
+    /**
+     * @var IUserRepo 
+     */
+    private $userRepo;
     
-    
-    public function __construct(IProjectRepo $repo, ProjectTransformer $transformer) {
+    public function __construct(IProjectRepo $repo, ProjectTransformer $transformer, IUserRepo $userRepo) {
         parent::__construct($repo, $transformer);
 	
-    
+        $this->userRepo = $userRepo;
     
     
     }
@@ -60,7 +64,7 @@ class ProjectController extends ResourceController
     {
         $data = $request->only($this->repo->getModel()->getFillable()); 
         
-        $item = $this->repo->find($id);
+        //$item = $this->repo->find($id);
 
 	
         return $this->updateItem($data, $id);
@@ -173,5 +177,40 @@ class ProjectController extends ResourceController
     }
 
 
+     /**
+     * Attach User
+     *
+     * Attach the User to existing Project.
+     *
+     * @param  App\Http\Requests\UserAttachProjectRequest  $request
+     * @param  int  $id
+     * @param  int  $user_id
+     * @return \Illuminate\Http\Response
+     */
+    public function attachUser(UserAttachProjectRequest $request, $id, $user_id)
+    {
+            $data = $request->only(array_keys($request->rules()));
 
+            //$project = $this->repo->find($id)->getModel();
+	    	
+	    $model = $this->userRepo->find($user_id)->getModel();
+
+            return ApiResponse::ItemAttached($this->repo->find($id)->attachUser($model, $data)->getModel(), $this->transformer);
+    }
+
+    /**
+     * Detach User
+     *
+     * Detach the specified resource from existing resource.
+     *
+     * @param  int  $id
+     * @param  int  $user_id
+     * @return \Illuminate\Http\Response
+     */
+    public function detachUser($id, $user_id)
+    {	    	
+	$model = $this->userRepo->find($user_id)->getModel();
+        //$user = $this->repo->find($id)->getModel();
+        return ApiResponse::ItemDetached($this->repo->find($id)->detachUser($model)->getModel());
+    }
 }

@@ -12,4 +12,6 @@ interface IOrderRepo extends IRepo {
    
 
     function checkToUpdateStatus();
+    
+    function searchByRelation($project_id, $category_id);
 }

@@ -17,7 +17,7 @@ class StoreReviewRequest extends ApiRequest
     {
         return [
 	    'order_id' => 'required',
-	    'description' => 'required',
+	    //'description' => 'required',
 
         ];
     }

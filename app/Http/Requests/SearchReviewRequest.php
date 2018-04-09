@@ -4,8 +4,9 @@ namespace App\Http\Requests;
 
 //use App\Models\{{model}};
 use Dinkara\DinkoApi\Http\Requests\ApiRequest;
+use App\Support\Enum\OrderStatuses;
 
-class UpdateReviewRequest extends ApiRequest
+class SearchReviewRequest extends ApiRequest
 {
 
     /**
@@ -16,8 +17,9 @@ class UpdateReviewRequest extends ApiRequest
     public function rules()
     {
         return [
-	    //'description' => 'required',
-
+	    'category_id' => 'required',
+            'order_id' => 'required',
+	    'project_id' => 'required',
         ];
     }
 }

@@ -51,12 +51,12 @@
             <table class="ml20 table is-fullwidth no-border">                    
                     <tbody>
                         <tr>                            
-                          <td>Naziv elementa/oznaka: <b>{{$review->order->description}}</b></td>                            
+                          <td>Naziv elementa/oznaka: <b>{{$review->order->description . " / " . $review->position}}</b></td>                            
                             <td>Datum: <b>{{Carbon\Carbon::parse($review->created_at)->format('d-m-Y')}}</b></td>
                         </tr>
                         <tr>
                             <td>Za objekat: <b>{{$review->order->project->name}}</b></td>                            
-                            <td>Oznaka: <b>{{Carbon\Carbon::parse($review->created_at)->format('d.m') . "/" . $review->position}}</b></td>
+                            <td>Oznaka: <b>{{Carbon\Carbon::parse($review->created_at)->format('d.m')}}</b></td>
                         </tr>
                     </tbody>
             </table>
@@ -92,9 +92,9 @@
             </div>
 
           <div class="columns ml20 mr20">
-                <div class="column is-pulled-right">
-                  <label class="label is-title is-3">Ček listu popunio</label>                  
-                  <span>{{$review->user->profile->name}}</span>
+                <div class="column is-12 is-pulled-right">
+                  <p class="label is-title is-3">Ček listu popunio</p>                  
+                  <p>{{$review->user->profile->name}}</p>
                 </div>                
           </div>
         </div>
