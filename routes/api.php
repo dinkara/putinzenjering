@@ -79,7 +79,12 @@ Route::middleware(['dinkoapi.auth', 'user.check.status'])->group(function (){
 
                 Route::get('{id}/users/paginate', 'Admin\ProjectController@paginatedUsers');
 
-
+                Route::group(['prefix' => '{id}'], function(){ 
+                                                   
+                    Route::post('users/{user_id}', 'Admin\ProjectController@attachUser');
+                                
+                    Route::delete('users/{user_id}', 'Admin\ProjectController@detachUser');
+                });
 
             });   
 
@@ -130,6 +135,8 @@ Route::middleware(['dinkoapi.auth', 'user.check.status'])->group(function (){
             Route::group(['prefix' => 'orders'], function(){
                 Route::get('paginate', 'Admin\OrderController@paginate');
 
+                Route::post('search', 'Admin\OrderController@search');
+                
                 Route::post('{id}/pdf', 'Admin\OrderController@pdf');
                 
                 Route::get('{id}/reviews', 'Admin\OrderController@allReviews');
@@ -155,6 +162,10 @@ Route::middleware(['dinkoapi.auth', 'user.check.status'])->group(function (){
                 Route::group(['prefix' => 'reviews'], function(){
                     Route::get('paginate', 'Admin\ReviewController@paginate');
 
+                    Route::post('search', 'Admin\ReviewController@search');
+                    
+                    Route::post('pdf', 'Admin\ReviewController@pdfAll');
+                    
                     Route::post('{id}/pdf', 'Admin\ReviewController@pdf');
                     
                     Route::get('{id}/questions', 'Admin\ReviewController@allQuestions');
@@ -182,57 +193,59 @@ Route::middleware(['dinkoapi.auth', 'user.check.status'])->group(function (){
     });
     
     /*===================== CategoryController route section =====================*/
-    Route::group(['prefix' => 'categories'], function(){
-        Route::get('paginate', 'CategoryController@paginate');
-        
-        Route::get('{id}/orders', 'CategoryController@allOrders');
+//    Route::group(['prefix' => 'categories'], function(){
+//        Route::get('paginate', 'CategoryController@paginate');
+//        
+//        Route::get('{id}/orders', 'CategoryController@allOrders');
+//
+//        Route::get('{id}/orders/paginate', 'CategoryController@paginatedOrders');
+//
+//    });   
 
-        Route::get('{id}/orders/paginate', 'CategoryController@paginatedOrders');
-
-    });   
-
-    Route::resource('categories', 'CategoryController', [
-        'parameters' => [
-            'categories' => 'id'
-        ],
-        'only' => [
-            'index', 'show'
-        ]
-    ]);
+//    Route::resource('categories', 'CategoryController', [
+//        'parameters' => [
+//            'categories' => 'id'
+//        ],
+//        'only' => [
+//            'index', 'show'
+//        ]
+//    ]);
     /* End CategoryController route section */
     
     /*===================== ImageController route section =====================*/
-    Route::group(['prefix' => 'images'], function(){
-        Route::get('paginate', 'ImageController@paginate');
+//    Route::group(['prefix' => 'images'], function(){
+//        Route::get('paginate', 'ImageController@paginate');
+//
+//    });   
 
-
-
-    });   
-
-    Route::apiResource('images', 'ImageController', [
+    Route::resource('images', 'ImageController', [
         'parameters' => [
             'images' => 'id'
+        ],
+        'only' => [
+            'store', 'destroy'
         ]
     ]);
+    
     /* End ImageController route section */
     
     /*===================== LoadingController route section =====================*/
-    Route::group(['prefix' => 'loadings'], function(){
-        Route::get('paginate', 'LoadingController@paginate');
-        
-        Route::get('{id}/images', 'LoadingController@allImages');
-
-        Route::get('{id}/images/paginate', 'LoadingController@paginatedImages');
-
-
-
-    });   
-
-    Route::apiResource('loadings', 'LoadingController', [
-        'parameters' => [
-            'loadings' => 'id'
-        ]
-    ]);
+//    Route::group(['prefix' => 'loadings'], function(){
+//        Route::get('paginate', 'LoadingController@paginate');
+//        
+//        Route::get('{id}/images', 'LoadingController@allImages');
+//
+//        Route::get('{id}/images/paginate', 'LoadingController@paginatedImages');
+//
+//
+//
+//    });   
+//
+//    Route::apiResource('loadings', 'LoadingController', [
+//        'parameters' => [
+//            'loadings' => 'id'
+//        ]
+//    ]);
     /* End LoadingController route section */
     
     /*===================== OrderController route section =====================*/
@@ -243,11 +256,9 @@ Route::middleware(['dinkoapi.auth', 'user.check.status'])->group(function (){
 
         Route::get('{id}/reviews/paginate', 'OrderController@paginatedReviews');
         
-        Route::get('{id}/loadings', 'OrderController@allLoadings');
+        //Route::get('{id}/loadings', 'OrderController@allLoadings');
 
-        Route::get('{id}/loadings/paginate', 'OrderController@paginatedLoadings');
-
-
+       // Route::get('{id}/loadings/paginate', 'OrderController@paginatedLoadings');
 
     });   
 
@@ -269,20 +280,20 @@ Route::middleware(['dinkoapi.auth', 'user.check.status'])->group(function (){
 
         Route::get('{id}/orders/paginate', 'ProjectController@paginatedOrders');
         
-        Route::get('{id}/users', 'ProjectController@allUsers');
+        //Route::get('{id}/users', 'ProjectController@allUsers');
 
-        Route::get('{id}/users/paginate', 'ProjectController@paginatedUsers');
+        //Route::get('{id}/users/paginate', 'ProjectController@paginatedUsers');
 
 
 
     });   
 
-    Route::apiResource('projects', 'ProjectController', [
+    Route::resource('projects', 'ProjectController', [
         'parameters' => [
             'projects' => 'id'
         ],
         'only' => [
-            'index', 'show'
+            'show'
         ]
     ]);
     /* End ProjectController route section */
@@ -291,15 +302,15 @@ Route::middleware(['dinkoapi.auth', 'user.check.status'])->group(function (){
     Route::group(['prefix' => 'questions'], function(){
         Route::get('paginate', 'QuestionController@paginate');
         
-        Route::get('{id}/reviews', 'QuestionController@allReviews');
+        //Route::get('{id}/reviews', 'QuestionController@allReviews');
 
-        Route::get('{id}/reviews/paginate', 'QuestionController@paginatedReviews');
+        //Route::get('{id}/reviews/paginate', 'QuestionController@paginatedReviews');
 
 
 
     });   
 
-    Route::apiResource('questions', 'QuestionController', [
+    Route::resource('questions', 'QuestionController', [
         'parameters' => [
             'questions' => 'id'
         ],
@@ -311,7 +322,7 @@ Route::middleware(['dinkoapi.auth', 'user.check.status'])->group(function (){
     
     /*===================== ReviewController route section =====================*/
     Route::group(['prefix' => 'reviews'], function(){
-        Route::get('paginate', 'ReviewController@paginate');
+        Route::get('paginate', 'ReviewController@paginate');                
         
         Route::get('{id}/questions', 'ReviewController@allQuestions');
 
@@ -335,32 +346,32 @@ Route::middleware(['dinkoapi.auth', 'user.check.status'])->group(function (){
     /* End ReviewController route section */
     
     /*===================== TruckController route section =====================*/
-    Route::group(['prefix' => 'trucks'], function(){
-        Route::get('paginate', 'TruckController@paginate');
-
-
-
-    });   
-
-    Route::apiResource('trucks', 'TruckController', [
-        'parameters' => [
-            'trucks' => 'id'
-        ]
-    ]);
+//    Route::group(['prefix' => 'trucks'], function(){
+//        Route::get('paginate', 'TruckController@paginate');
+//
+//
+//
+//    });   
+//
+//    Route::apiResource('trucks', 'TruckController', [
+//        'parameters' => [
+//            'trucks' => 'id'
+//        ]
+//    ]);
     /* End TruckController route section */
     
     /*===================== UserController route section =====================*/
     Route::group(['prefix' => 'users'], function(){
         Route::get("/me", 'UserController@me');
-        Route::put("/", 'UserController@update');
+        //Route::put("/", 'UserController@update');
         
         Route::get('roles', 'UserController@allRoles');
 
         Route::get('roles/paginate', 'UserController@paginatedRoles');
         
-        Route::get('social-networks', 'UserController@allSocialNetworks');
+        //Route::get('social-networks', 'UserController@allSocialNetworks');
 
-        Route::get('social-networks/paginate', 'UserController@paginatedSocialNetworks');
+        //Route::get('social-networks/paginate', 'UserController@paginatedSocialNetworks');
         
         Route::get('projects', 'UserController@allProjects');
 
@@ -370,17 +381,17 @@ Route::middleware(['dinkoapi.auth', 'user.check.status'])->group(function (){
 
         Route::get('reviews/paginate', 'UserController@paginatedReviews');
         
-        Route::get('loadings', 'UserController@allLoadings');
+        //Route::get('loadings', 'UserController@allLoadings');
 
-        Route::get('loadings/paginate', 'UserController@paginatedLoadings');
+        //Route::get('loadings/paginate', 'UserController@paginatedLoadings');
 
-        Route::post('roles/{role_id}', 'UserController@attachRole');
-        Route::post('social-networks/{social_network_id}', 'UserController@attachSocialNetwork');
-        Route::post('projects/{project_id}', 'UserController@attachProject');
+        //Route::post('roles/{role_id}', 'UserController@attachRole');
+        //Route::post('social-networks/{social_network_id}', 'UserController@attachSocialNetwork');
+        //Route::post('projects/{project_id}', 'UserController@attachProject');
 
-        Route::delete('roles/{role_id}', 'UserController@detachRole');
-        Route::delete('social-networks/{social_network_id}', 'UserController@detachSocialNetwork');
-        Route::delete('projects/{project_id}', 'UserController@detachProject');
+        //Route::delete('roles/{role_id}', 'UserController@detachRole');
+        //Route::delete('social-networks/{social_network_id}', 'UserController@detachSocialNetwork');
+        //Route::delete('projects/{project_id}', 'UserController@detachProject');
 
     });
     /* End UserController route section */

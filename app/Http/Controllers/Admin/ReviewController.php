@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreReviewRequest;
 use App\Http\Requests\UpdateReviewRequest;
+use App\Http\Requests\SearchReviewRequest;
 use App\Repositories\Review\IReviewRepo;
 use App\Repositories\Order\IOrderRepo;
 use App\Transformers\ReviewTransformer;
@@ -29,8 +30,7 @@ class ReviewController extends ResourceController
      * @var IQuestionRepo 
      */
     private $questionRepo;
-    
-    
+        
     /**
      * @var IOrderRepo 
      */
@@ -248,9 +248,36 @@ class ReviewController extends ResourceController
     }
 
     public function pdf($id) {
+        
         $review = $this->repo->find($id)->getModel();
         $pdf = PDF::loadView('pdf.review', ['review' => $review]);
         
-        return $pdf->stream('review.pdf');        
+        //return view('pdf.review', ['review' => $review]);
+        return $pdf->stream('review.pdf');
+    }
+    
+    public function pdfAll(SearchReviewRequest $request) {                
+        
+        $reviews = $this->repo->searchByRelation($request->q, $request->project_id, $request->order_id, $request->category_id);
+
+        $pdf = PDF::loadView('pdf.multiple', ['reviews' => $reviews]);
+        
+        return $pdf->stream('all.pdf');                  
+        
+
+    }
+    
+    public function search(SearchReviewRequest $request) {
+        try{
+            if($pagination = $request->pagination){
+                return ApiResponse::Pagination($this->repo->searchAndPaginateByRelation($request->q, $request->project_id, $request->order_id, $request->category_id, $pagination), new $this->transformer);
+            }
+            else{
+                return ApiResponse::Pagination($this->repo->searchAndPaginateByRelation($request->q, $request->project_id, $request->order_id, $request->category_id), new $this->transformer);
+            }
+            //dd($this->repo->searchByRelation($request->project_id, $request->category_id));            
+        } catch (QueryException $e) {
+            return ApiResponse::InternalError($e->getMessage());
+        }        
     }
 }

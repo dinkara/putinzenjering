@@ -18,8 +18,8 @@ class StoreProjectRequest extends ApiRequest
     {
         return [
 	    'name' => 'required',
-	    'location' => 'required',
-	    'description' => 'required',
+	    //'location' => 'required',
+	    //'description' => 'required',
 
         ];
     }

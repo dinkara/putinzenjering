@@ -30,6 +30,8 @@ class EloquentOrder extends EloquentRepo implements IOrderRepo {
                         
         $reviews = $this->model->reviews;
         
+        //dd(count($reviews) < $this->model->quantity);
+        
         if($this->model->status != OrderStatuses::IN_PROGRESS && count($reviews) > 0 && count($reviews) < $this->model->quantity){
             $this->setStatus(OrderStatuses::IN_PROGRESS);
         }
@@ -56,7 +58,27 @@ class EloquentOrder extends EloquentRepo implements IOrderRepo {
 
     private function setStatus($status){
         $this->model->status = $status;
+        
         $result = $this->model->save();
+        
         return $this->finalize($result);
     }
+
+    public function searchByRelation($project_id, $category_id) {
+        if (!$this->model)
+            $this->initialize();
+        
+        $result = $this->model();
+        
+        if($project_id && $project_id != -1){
+            $result = $result->where("project_id", $project_id);            
+        }
+        
+        if($category_id && $category_id != -1){
+            $result = $result->where("category_id", $category_id);
+        }
+        
+        return $result->get();
+    }
+
 }

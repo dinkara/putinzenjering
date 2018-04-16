@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Http\Requests\SearchOrderRequest;
 use App\Repositories\Order\IOrderRepo;
+use App\Repositories\Project\IProjectRepo;
 use App\Transformers\OrderTransformer;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Dinkara\DinkoApi\Http\Controllers\ResourceController;
@@ -21,11 +23,13 @@ use PDF;
 class OrderController extends ResourceController
 {
 
+    protected $projectRepo;
     
     
-    public function __construct(IOrderRepo $repo, OrderTransformer $transformer) {
+    public function __construct(IOrderRepo $repo, IProjectRepo $projectRepo, OrderTransformer $transformer) {
         parent::__construct($repo, $transformer);
 	
+        $this->projectRepo = $projectRepo;
         $this->middleware('exists.category:category_id,true', ['only' => ['store']]);
 
         $this->middleware('exists.project:project_id,true', ['only' => ['store']]);
@@ -46,9 +50,12 @@ class OrderController extends ResourceController
     public function store(StoreOrderRequest $request)
     {       
         $data = $request->only($this->repo->getModel()->getFillable());
-
 	
-        return $this->storeItem($data);
+        $result = $this->storeItem($data);
+        
+        $this->projectRepo->find($data["project_id"])->checkToUpdateStatus();
+                
+        return $result;
     }
 
     /**
@@ -63,10 +70,16 @@ class OrderController extends ResourceController
     public function update(UpdateOrderRequest $request, $id)
     {
         $data = $request->only($this->repo->getModel()->getFillable());        
-        $item = $this->repo->find($id);
+        //$item = $this->repo->find($id);
 
-	
-        return $this->updateItem($data, $id);
+        try {
+            if( $item = $this->repo->find($id)){                
+                return ApiResponse::ItemUpdated($item->update($data)->checkToUpdateStatus()->getModel(), new $this->transformer, class_basename($this->repo->getModel()));
+            }
+        } catch (QueryException $e) {
+            return ApiResponse::InternalError($e->getMessage());
+        }
+        return ApiResponse::ItemNotFound($this->repo->getModel());        	
     }
 
         /**
@@ -80,9 +93,12 @@ class OrderController extends ResourceController
     public function destroy($id)
     {
         try{
-            if($item = $this->repo->find($id)){
+            if($item = $this->repo->find($id)){                                
                 
                 $item->delete($id);
+                
+                $this->projectRepo->find($this->repo->getModel()->project_id)->checkToUpdateStatus();
+                
                 return ApiResponse::ItemDeleted($this->repo->getModel());
             }
         } catch (QueryException $e) {
@@ -177,11 +193,19 @@ class OrderController extends ResourceController
 
     public function pdf($id) {
         $reviews = $this->repo->find($id)->getModel()->reviews;
-        
+                
         $pdf = PDF::loadView('pdf.multiple', ['reviews' => $reviews]);
         
-        return $pdf->stream('reviews.pdf');        
+        return $pdf->stream('reviews.pdf');
     }
 
+    public function search(SearchOrderRequest $request) {
+        try{
+            //dd($this->repo->searchByRelation($request->project_id, $request->category_id));
+            return ApiResponse::Collection($this->repo->searchByRelation($request->project_id, $request->category_id), new $this->transformer);
+        } catch (QueryException $e) {
+            return ApiResponse::InternalError($e->getMessage());
+        }        
+    }
 
 }

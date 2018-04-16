@@ -16,5 +16,8 @@ interface IReviewRepo extends IRepo {
 
     function detachQuestion(Question $model);
 
-
+    function searchByRelation($q, $project_id, $order_id, $category_id);
+    
+    function searchAndPaginateByRelation($q, $project_id, $order_id, $category_id, $perPage = 15);
+    
 }
