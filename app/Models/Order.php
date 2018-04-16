@@ -38,7 +38,7 @@ class Order extends Model
     
     public function reviews($q = null, $orderBy = null)
     {
-        $relation = $this->hasMany('App\Models\Review', 'order_id')->orderBy("position", "asc");
+        $relation = $this->hasMany('App\Models\Review', 'order_id');
         if($q == null && $orderBy == null){
             return $relation;
         }
