@@ -13,7 +13,7 @@ use Storage;
 use ApiResponse;
 use App\Transformers\ReviewTransformer;
 use App\Transformers\LoadingTransformer;
-
+use App\Http\Requests\SearchOrderRequest;
 
 /**
  * @resource Order
@@ -118,6 +118,14 @@ class OrderController extends ResourceController
         } 
     }
 
+    public function search(SearchOrderRequest $request) {
+        try{
+            //dd($this->repo->searchByRelation($request->project_id, $request->category_id));
+            return ApiResponse::Collection($this->repo->searchByRelation($request->project_id, $request->category_id), new $this->transformer);
+        } catch (QueryException $e) {
+            return ApiResponse::InternalError($e->getMessage());
+        }        
+    }
 
 
 }

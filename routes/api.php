@@ -202,14 +202,14 @@ Route::middleware(['dinkoapi.auth', 'user.check.status'])->group(function (){
 //
 //    });   
 
-//    Route::resource('categories', 'CategoryController', [
-//        'parameters' => [
-//            'categories' => 'id'
-//        ],
-//        'only' => [
-//            'index', 'show'
-//        ]
-//    ]);
+    Route::resource('categories', 'CategoryController', [
+        'parameters' => [
+            'categories' => 'id'
+        ],
+        'only' => [
+            'index'
+        ]
+    ]);
     /* End CategoryController route section */
     
     /*===================== ImageController route section =====================*/
@@ -251,6 +251,8 @@ Route::middleware(['dinkoapi.auth', 'user.check.status'])->group(function (){
     /*===================== OrderController route section =====================*/
     Route::group(['prefix' => 'orders'], function(){
         Route::get('paginate', 'OrderController@paginate');
+        
+        Route::post('search', 'OrderController@search');
         
         Route::get('{id}/reviews', 'OrderController@allReviews');
 
