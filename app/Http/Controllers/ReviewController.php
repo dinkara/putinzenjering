@@ -74,7 +74,11 @@ class ReviewController extends ResourceController
         $count = count($order->reviews);        
         if($count < $order->quantity){
             try {
-                $position = $order->reviews[count($order->reviews)-1]->position + 1;                
+                if($count===0){
+                    $position = 1;
+                }else{
+                    $position = $order->reviews[count($order->reviews)-1]->position + 1;
+                }
                 if($position > $order->quantity){
                     $difference = array_diff(range(1, $order->quantity), $order->reviews->pluck('position')->toArray());                    
                     //dd($difference);
